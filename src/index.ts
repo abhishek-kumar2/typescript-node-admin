@@ -1,9 +1,9 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
-import { routes } from "./routes";
+import {routes} from "./routes";
 import {createConnection} from "typeorm";
 
-createConnection().then(connection => {
+createConnection().then(() => {
     const app = express();
 
     app.use(express.json());
@@ -11,7 +11,7 @@ createConnection().then(connection => {
         origin: ["http://localhost:3000"]
     }));
 
-    routes(app)
+    routes(app);
 
     app.listen(8000, () => {
         console.log("listening to port 8000")
