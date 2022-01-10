@@ -60,7 +60,7 @@ export const Login = async (req: Request, res: Response) => {
     });
 };
 
-export const AuthenticatedUser = async (req: Request, res: Response) => { //console.log('user: ', req.cookies['jwt'], verify(req.cookies['jwt'], process.env.JWT_SECRET));
+export const AuthenticatedUser = async (req: Request, res: Response) => {
     const jwt = req.cookies['jwt'];
     let payload: any;
 
@@ -85,7 +85,7 @@ export const AuthenticatedUser = async (req: Request, res: Response) => { //cons
     return res.send(user);
 };
 
-export const Logout = (req: Request, res: Response) => { //console.log('logout: ', req.cookies['jwt'], verify(req.cookies['jwt'], process.env.JWT_SECRET));
+export const Logout = (req: Request, res: Response) => {
     res.cookie('jwt', '', {httpOnly: true, maxAge: Number(process.env.COOKIE_MIN_AGE)});
     res.send({
         message: "Logout Success..."
