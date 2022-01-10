@@ -13,9 +13,9 @@ export const RegisterValidation = Joi.object({
         .email()
         .required(),
     password: Joi.string()
-        .regex(/[a-zA-Z0-9]{3,30}/)
+        .regex(new RegExp(process.env.PASS_REGEX))
         .required(),
     confirm_password: Joi.string()
-        .regex(/[a-zA-Z0-9]{3,30}/)
+        .regex(new RegExp(process.env.PASS_REGEX))
         .required()
 });
