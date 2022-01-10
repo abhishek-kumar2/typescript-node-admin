@@ -2,12 +2,10 @@ import { Joi } from "express-validation";
 
 export const RegisterValidation = Joi.object({
     first_name: Joi.string()
-        .min(3)
-        .max(15)
+        .regex(new RegExp(process.env.NAME_REGEX))
         .required(),
     last_name: Joi.string()
-        .min(3)
-        .max(15)
+        .regex(new RegExp(process.env.NAME_REGEX))
         .required(),
     email: Joi.string()
         .email()
