@@ -7,6 +7,6 @@ export const routes = (router: Router) => {
     router.post('/api/login', Login);
     router.post('/api/logout', Logout);
     router.get('/api/user', AuthMiddleware, AuthenticatedUser);
-    router.put('/api/user/info', AuthMiddleware, UpdateInfo);
-    router.put('/api/user/password', AuthMiddleware, UpdatePassword);
+    router.put('/api/users/info', AuthMiddleware, UpdateInfo);
+    router.put('/api/users/password', AuthMiddleware, UpdatePassword);
 };
