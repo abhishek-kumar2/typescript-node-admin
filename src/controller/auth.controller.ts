@@ -35,7 +35,7 @@ export const Register = async (req: Request, res: Response) => {
         password: await bcyptjs.hash(body.password, 10)
     });
 
-    res.send(user);
+    return res.send(user);
 };
 
 export const Login = async (req: Request, res: Response) => {
@@ -55,14 +55,23 @@ export const Login = async (req: Request, res: Response) => {
         maxAge: Number(process.env.COOKIE_MAX_AGE)
     });
 
-    res.send({
+    return res.send({
         message: "Login Success..."
     });
 };
 
-export const AuthenticatedUser = async (req: Request, res: Response) => {
+export const AuthenticatedUser = async (req: Request, res: Response) => { //console.log('user: ', req.cookies['jwt'], verify(req.cookies['jwt'], process.env.JWT_SECRET));
     const jwt = req.cookies['jwt'];
-    const payload: any = verify(jwt, process.env.JWT_SECRET);
+    let payload: any;
+
+    try {
+        payload = jwt ? verify(jwt, process.env.JWT_SECRET) : undefined;
+    } catch(e) {
+        return res.status(401).send({
+            message: "Unauthenticated..."
+        });
+    }
+
 
     if(!payload) {
         return res.status(401).send({
@@ -71,7 +80,14 @@ export const AuthenticatedUser = async (req: Request, res: Response) => {
     }
 
     const repository = getManager().getRepository(User);
-    const {password, ...user} = await repository.findOne(payload.id)
+    const {password, ...user} = await repository.findOne(payload.id);
 
-    res.send(user);
+    return res.send(user);
+};
+
+export const Logout = (req: Request, res: Response) => { //console.log('logout: ', req.cookies['jwt'], verify(req.cookies['jwt'], process.env.JWT_SECRET));
+    res.cookie('jwt', '', {httpOnly: true, maxAge: Number(process.env.COOKIE_MIN_AGE)});
+    res.send({
+        message: "Logout Success..."
+    });
 };
