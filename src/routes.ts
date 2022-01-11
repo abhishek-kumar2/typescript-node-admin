@@ -4,6 +4,7 @@ import {AuthMiddleware} from "./middleware/auth.middleware";
 import {CreateUser, DeleteUser, GetUser, UpdateUser, Users} from "./controller/user.controller";
 
 export const routes = (router: Router) => {
+    //Auth Controller
     router.post('/api/register', Register);
     router.post('/api/login', Login);
     router.post('/api/logout', Logout);
@@ -11,6 +12,7 @@ export const routes = (router: Router) => {
     router.put('/api/users/info', AuthMiddleware, UpdateInfo);
     router.put('/api/users/password', AuthMiddleware, UpdatePassword);
 
+    //User Controller
     router.get('/api/users', AuthMiddleware, Users);
     router.post('/api/users', AuthMiddleware, CreateUser);
     router.get('/api/users/:id', AuthMiddleware, GetUser);
