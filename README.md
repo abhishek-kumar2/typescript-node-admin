@@ -10,6 +10,7 @@ PUT    http://localhost:8001/api/user/password
 
 ## --|| User ||--
 GET    http://localhost:8001/api/users  
+GET    http://localhost:8001/api/users?page=2  
 POST   http://localhost:8001/api/users  
 GET    http://localhost:8001/api/users/1  
 PUT    http://localhost:8001/api/users/4  

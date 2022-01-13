@@ -4,13 +4,28 @@ import {User} from "../entity/user.entity";
 import bcyptjs from "bcryptjs";
 
 export const Users =  async (req: Request, res: Response) => {
-    const repository = getManager().getRepository(User);
-    const users = await repository.find({relations: ['role']});
+    const take = 10;
+    const page = parseInt(req.query.page as string || '1');
 
-    return res.send(users.map(u => {
-        const {password, ...data} = u;
-        return data;
-    }));
+    const repository = getManager().getRepository(User);
+
+    const [data, total] = await repository.findAndCount({
+        take,
+        skip: (page - 1) * take,
+        relations: ['role']
+    });
+
+    return res.send({
+        data: data.map(u => {
+            const {password, ...data} = u;
+            return data;
+        }),
+        meta: {
+            total,
+            page,
+            last_page: Math.ceil(total / take)
+        }
+    });
 };
 
 export const CreateUser = async (req: Request, res: Response) => {
