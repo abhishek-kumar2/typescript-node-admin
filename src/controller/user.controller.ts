@@ -54,7 +54,7 @@ export const UpdateUser = async (req: Request, res: Response) => {
 
     const {password, ...user} = await repository.findOne(req.params.id, {relations: ['role']});
 
-    return res.send(user);
+    return res.status(202).send(user);
 };
 
 export const DeleteUser = async (req: Request, res: Response) => {
