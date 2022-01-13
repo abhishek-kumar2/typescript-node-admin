@@ -23,7 +23,7 @@ export const CreateUser = async (req: Request, res: Response) => {
         role: { id: role_id }
     });
 
-    return res.send(user);
+    return res.status(201).send(user);
 };
 
 export const GetUser = async (req: Request, res: Response) => {
