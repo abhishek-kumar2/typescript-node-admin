@@ -27,6 +27,7 @@ DELETE http://localhost:8001/api/roles/4
 
 ## --|| Product ||--
 GET    http://localhost:8001/api/products  
+GET    http://localhost:8001/api/products?page=2  
 POST   http://localhost:8001/api/products  
 GET    http://localhost:8001/api/products/2  
 PUT    http://localhost:8001/api/products/2  
