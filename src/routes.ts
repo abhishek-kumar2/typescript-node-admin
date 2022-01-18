@@ -1,10 +1,13 @@
-import {Router} from "express";
+import {Router, Request, Response} from "express";
 import {AuthenticatedUser, Login, Logout, Register, UpdateInfo, UpdatePassword} from "./controller/auth.controller";
 import {AuthMiddleware} from "./middleware/auth.middleware";
 import {CreateUser, DeleteUser, GetUser, UpdateUser, Users} from "./controller/user.controller";
 import {Permissions} from "./controller/permission.controller";
 import {CreateRole, DeleteRole, GetRole, Roles, UpdateRole} from "./controller/role.controller";
 import {CreateProduct, DeleteProduct, GetProduct, Products, UpdateProduct} from "./controller/product.controller";
+import {Upload} from "./controller/image.controller";
+import Multer from "multer";
+import { extname } from "path";
 
 export const routes = (router: Router) => {
     //Auth Controller
@@ -38,4 +41,17 @@ export const routes = (router: Router) => {
     router.get('/api/products/:id', AuthMiddleware, GetProduct);
     router.put('/api/products/:id', AuthMiddleware, UpdateProduct);
     router.delete('/api/products/:id', AuthMiddleware, DeleteProduct);
+
+    //Image Upload
+    const storage = Multer.diskStorage({
+        destination: './uploads',
+        /*filename(req: e.Request, file: Express.Multer.File, callback: (error: (Error | null), filename: string) => void) {
+        }*/
+
+        filename(_: Request, file: Express.Multer.File, callback) {
+            const randomName = Math.random().toString(20).substr(2, 12);
+            return callback(null, `${randomName}${extname(file.originalname)}`);
+        }
+    });
+    router.post('/api/upload', AuthMiddleware, Multer({storage}).single('image'), Upload);
 };

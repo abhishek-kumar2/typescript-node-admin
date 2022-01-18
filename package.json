@@ -26,6 +26,7 @@
     "@types/express": "^4.17.13",
     "@types/faker": "^5.5.9",
     "@types/jsonwebtoken": "^8.5.6",
+    "@types/multer": "^1.4.7",
     "@types/node": "^17.0.8",
     "nodemon": "^2.0.15",
     "ts-node": "^10.4.0",
@@ -40,6 +41,7 @@
     "express-validation": "^3.0.8",
     "faker": "^5.5.3",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.4",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.41"
