@@ -7,7 +7,7 @@ import {CreateRole, DeleteRole, GetRole, Roles, UpdateRole} from "./controller/r
 import {CreateProduct, DeleteProduct, GetProduct, Products, UpdateProduct} from "./controller/product.controller";
 import {Upload} from "./controller/image.controller";
 import Multer from "multer";
-import { extname } from "path";
+import {storage} from "./middleware/multer.middleware";
 
 export const routes = (router: Router) => {
     //Auth Controller
@@ -43,15 +43,5 @@ export const routes = (router: Router) => {
     router.delete('/api/products/:id', AuthMiddleware, DeleteProduct);
 
     //Image Upload
-    const storage = Multer.diskStorage({
-        destination: './uploads',
-        /*filename(req: e.Request, file: Express.Multer.File, callback: (error: (Error | null), filename: string) => void) {
-        }*/
-
-        filename(_: Request, file: Express.Multer.File, callback) {
-            const randomName = Math.random().toString(20).substr(2, 12);
-            return callback(null, `${randomName}${extname(file.originalname)}`);
-        }
-    });
     router.post('/api/upload', AuthMiddleware, Multer({storage}).single('image'), Upload);
 };
