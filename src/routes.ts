@@ -1,4 +1,5 @@
 import {Router} from "express";
+import express from "express";
 import {AuthenticatedUser, Login, Logout, Register, UpdateInfo, UpdatePassword} from "./controller/auth.controller";
 import {AuthMiddleware} from "./middleware/auth.middleware";
 import {CreateUser, DeleteUser, GetUser, UpdateUser, Users} from "./controller/user.controller";
@@ -42,4 +43,7 @@ export const routes = (router: Router) => {
 
     //Image Upload
     router.post('/api/upload', AuthMiddleware, Upload);
+
+    //Static files access
+    router.use('/api/uploads', express.static(process.env.UPLOAD_PATH));
 };
