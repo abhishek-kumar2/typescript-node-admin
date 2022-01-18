@@ -1,4 +1,4 @@
-import {Router, Request, Response} from "express";
+import {Router} from "express";
 import {AuthenticatedUser, Login, Logout, Register, UpdateInfo, UpdatePassword} from "./controller/auth.controller";
 import {AuthMiddleware} from "./middleware/auth.middleware";
 import {CreateUser, DeleteUser, GetUser, UpdateUser, Users} from "./controller/user.controller";
@@ -6,8 +6,6 @@ import {Permissions} from "./controller/permission.controller";
 import {CreateRole, DeleteRole, GetRole, Roles, UpdateRole} from "./controller/role.controller";
 import {CreateProduct, DeleteProduct, GetProduct, Products, UpdateProduct} from "./controller/product.controller";
 import {Upload} from "./controller/image.controller";
-import Multer from "multer";
-import {storage} from "./middleware/multer.middleware";
 
 export const routes = (router: Router) => {
     //Auth Controller
@@ -43,5 +41,5 @@ export const routes = (router: Router) => {
     router.delete('/api/products/:id', AuthMiddleware, DeleteProduct);
 
     //Image Upload
-    router.post('/api/upload', AuthMiddleware, Multer({storage}).single('image'), Upload);
+    router.post('/api/upload', AuthMiddleware, Upload);
 };
