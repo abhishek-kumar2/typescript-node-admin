@@ -20,4 +20,12 @@ export class Order {
 
     @OneToMany(() => OrderItem, orderItem => orderItem.order)
     order_items: OrderItem[];
+
+    get name(): string {
+        return `${this.first_name} ${this.last_name}`
+    }
+
+    get total(): number {
+        return this.order_items.reduce((sum, item) => sum + item.quantity * item.price, 0)
+    }
 }

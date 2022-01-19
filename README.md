@@ -33,3 +33,11 @@ POST   http://localhost:8001/api/products
 GET    http://localhost:8001/api/products/2  
 PUT    http://localhost:8001/api/products/2  
 DELETE http://localhost:8001/api/products/3  
+
+## --|| Image Upload || --
+POST   http://localhost:8001/api/upload  
+GET    http://localhost:8001/api/uploads/<image_name>
+
+## --|| Order ||--
+GET    http://localhost:8001/api/orders  
+GET    http://localhost:8001/api/orders?page=2
