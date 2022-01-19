@@ -36,8 +36,9 @@ DELETE http://localhost:8001/api/products/3
 
 ## --|| Image Upload || --
 POST   http://localhost:8001/api/upload  
-GET    http://localhost:8001/api/uploads/<image_name>
+GET    http://localhost:8001/api/uploads/<image_name> (static path)
 
 ## --|| Order ||--
 GET    http://localhost:8001/api/orders  
-GET    http://localhost:8001/api/orders?page=2
+GET    http://localhost:8001/api/orders?page=2  
+POST   http://localhost:8001/api/export (export orders in csv)

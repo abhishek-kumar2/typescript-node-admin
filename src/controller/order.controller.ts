@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
 import {getManager} from "typeorm";
 import {Order} from "../entity/order.entity";
+import {Parser} from "json2csv";
+import {OrderItem} from "../entity/order-item.entity";
 
 export const Orders = async (req: Request, res: Response) => {
     const take = 10;
@@ -27,4 +29,41 @@ export const Orders = async (req: Request, res: Response) => {
             last_page: Math.ceil(total / take)
         }
     });
+}
+
+export const Export = async (req: Request, res: Response) => {
+    const parser = new Parser({
+        fields: ['ID', 'Name', 'Email', 'Product Title', 'Price', 'Quantity']
+    });
+    const repository = getManager().getRepository(Order);
+    const orders = await repository.find({relations: ['order_items']});
+    const json = [];
+
+    orders.forEach((order: Order) => {
+        json.push({
+            ID: order.id,
+            Name: order.name,
+            Email: order.email,
+            'Product Title': '',
+            Price: '',
+            Quantity: ''
+        });
+
+        order.order_items.forEach((item: OrderItem) => {
+            json.push({
+                ID: '',
+                Name: '',
+                Email: '',
+                'Product Title': item.product_title,
+                Price: item.price,
+                Quantity: item.quantity
+            });
+        });
+    });
+
+    const csv = parser.parse(json);
+
+    res.header('Content-Type', 'text/csv');
+    res.attachment('orders.csv');
+    res.send(csv);
 }
