@@ -42,3 +42,14 @@ GET    http://localhost:8001/api/uploads/<image_name> (static path)
 GET    http://localhost:8001/api/orders  
 GET    http://localhost:8001/api/orders?page=2  
 POST   http://localhost:8001/api/export (export orders in csv)
+
+##
+Use NodeJS with Typescript,
+Use TypeORM with MySQL,
+Generate Jwt Token,
+Login with HttpOnly Cookies,
+Upload Images,
+Export CSV files,
+React with Typescript,
+Use Redux  
+(FF code repo is 'typescript-react-admin')
