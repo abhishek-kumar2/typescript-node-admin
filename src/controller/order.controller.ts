@@ -5,7 +5,7 @@ import {Parser} from "json2csv";
 import {OrderItem} from "../entity/order-item.entity";
 
 export const Orders = async (req: Request, res: Response) => {
-    const take = 10;
+    const take = 15;
     const page = parseInt(req.query.page as string || '1');
     const repository = getManager().getRepository(Order);
     const [data, total] = await repository.findAndCount({
